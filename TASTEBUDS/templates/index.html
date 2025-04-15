@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TASTEBUDS - Campus Delivery | BPUT Rourkela</title>
+    <meta name="description" content="TASTEBUDS: Cloud kitchen delivery at BPUT Rourkela. Fresh, fast meals. Order easily via WhatsApp/Instagram.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Poppins Font - Include desired weights -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- AOS Library for Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* --- Color Scheme Variables --- */
+            --color-background-start: #030407;
+            --color-background-end: #000000;
+            --color-primary: #5869ff;
+            --color-primary-darker: #4556e0;
+            --color-accent: #ffffff;
+            --color-surface: rgba(18, 19, 26, 0.5);
+            --color-surface-hover: rgba(28, 30, 40, 0.7);
+            --color-text-light: #f5f7fa;
+            --color-text-medium: #a0aec0;
+            --color-text-dark: #1a202c;
+            --color-text-on-primary: #ffffff;
+            --color-text-on-primary-muted: rgba(255, 255, 255, 0.75);
+            --color-footer-border: rgba(255, 255, 255, 0.15);
+            --glow-primary: rgba(88, 105, 255, 0.55);
+            --glow-secondary: rgba(160, 174, 192, 0.15);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glass-hover: rgba(255, 255, 255, 0.15);
+            --transition-smooth: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transition-fast: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+            /* --- FONT VARIABLE (Only Poppins Needed) --- */
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 15px; }
+
+        body {
+            font-family: var(--font-main); font-weight: 400;
+            background: linear-gradient(180deg, var(--color-background-start) 0%, var(--color-background-end) 100%);
+            color: var(--color-text-light); line-height: 1.7;
+            overflow-x: hidden; position: relative;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Background Glow Effects --- */
+        body::before, body::after { content: ''; position: fixed; width: 75vmax; height: 75vmax; border-radius: 50%; filter: blur(350px); z-index: -2; opacity: 0; pointer-events: none; animation: subtleGlow 55s ease-in-out infinite alternate, fadeInGlow 5s ease forwards; }
+        body::before { background: radial-gradient(circle, var(--glow-primary), transparent 65%); top: -30vh; left: -35vw; animation-duration: 50s; animation-delay: 0s, 0s; }
+        body::after { background: radial-gradient(circle, var(--glow-secondary), transparent 70%); bottom: -35vh; right: -30vw; animation-delay: -25s, 0.5s; }
+        @keyframes fadeInGlow { to { opacity: 0.2; } }
+        @keyframes subtleGlow { 0% { transform: translate(0, 0) scale(1); opacity: 0.18; } 50% { transform: translate(8vw, 5vh) scale(1.15); opacity: 0.25; } 100% { transform: translate(-5vw, -7vh) scale(0.9); opacity: 0.2; } }
+        body::selection { background-color: var(--color-primary); color: var(--color-text-on-primary); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
+
+        /* --- Navigation --- */
+        nav { position: fixed; top: 0; left: 0; width: 100%; background: rgba(8, 9, 14, 0.65); -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px); padding: 15px 0; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: background-color 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease; }
+        nav.scrolled { background: rgba(12, 14, 20, 0.88); padding: 12px 0; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45); border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+        nav .container { display: flex; align-items: center; }
+        nav .logo-link { display: flex; align-items: center; text-decoration: none; color: var(--color-accent); font-weight: 600; font-size: 1.4rem; transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease; letter-spacing: 0.8px; opacity: 0.9; }
+        nav .logo-link:hover { transform: scale(1.04); filter: drop-shadow(0 0 12px var(--glow-primary)); opacity: 1; }
+        nav .logo-link img { height: 44px; width: 44px; margin-right: 14px; border-radius: 50%; border: 2px solid var(--color-primary-darker); transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast); background-color: rgba(255,255,255,0.03); padding: 2px; box-shadow: 0 1px 8px rgba(88, 105, 255, 0.15); }
+        nav .logo-link:hover img { border-color: var(--color-accent); transform: rotate(-8deg) scale(1.04); box-shadow: 0 3px 12px rgba(255, 255, 255, 0.18); }
+        nav ul { list-style: none; display: flex; gap: 40px; margin-left: auto; }
+        nav ul li a { color: var(--color-text-medium); text-decoration: none; font-weight: 500; transition: color var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast); padding-bottom: 10px; position: relative; font-size: 1.0rem; letter-spacing: 0.4px; display: inline-block; opacity: 0.85; }
+        nav ul li a:hover { color: var(--color-accent); transform: translateY(-2px); opacity: 1; }
+        nav ul li a::after { content: ''; position: absolute; width: 0; height: 2.5px; bottom: 3px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, var(--color-primary), var(--color-accent)); border-radius: 3px; transition: width 0.45s cubic-bezier(0.23, 1, 0.32, 1); opacity: 0; }
+        nav ul li a:hover::after, nav ul li a.active::after { width: 55%; opacity: 1; }
+        nav ul li a.active { color: var(--color-accent); opacity: 1; font-weight: 600; }
+
+        /* --- Section Styling --- */
+        .content-section { padding: 120px 0 100px 0; position: relative; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.03); overflow: hidden; }
+        .content-section:last-of-type { border-bottom: none; }
+         .content-section.alt-bg { background: var(--color-surface); -webkit-backdrop-filter: blur(25px); backdrop-filter: blur(25px); border: 1px solid var(--border-glass); border-radius: 35px; margin: 80px 20px; padding: 90px 35px; box-shadow: 0 15px 60px rgba(0, 0, 0, 0.55), 0 0 70px var(--glow-primary); position: relative; overflow: hidden; }
+
+        /* --- Typography --- */
+        h1, h2, h3, h4, h5, h6 { font-weight: 600; letter-spacing: 0.3px; margin-bottom: 0.7em; }
+        h1 { font-size: clamp(2.8rem, 7vw, 4.5rem); font-weight: 700; color: var(--color-accent); margin-bottom: 30px; text-shadow: 0 6px 35px rgba(0, 0, 0, 0.65); line-height: 1.25; letter-spacing: -0.8px; }
+        h1 span { background: linear-gradient(95deg, var(--color-primary) 0%, var(--color-accent) 120%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding: 0 6px; animation: gradientShine 8s ease-in-out infinite alternate; background-size: 200% 200%; }
+        @keyframes gradientShine { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        h2 { font-size: clamp(2.2rem, 5.5vw, 3.2rem); font-weight: 700; color: var(--color-primary); margin-bottom: 45px; position: relative; display: inline-block; padding-bottom: 18px; letter-spacing: -0.4px; }
+        h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 90px; height: 5px; background: linear-gradient(90deg, transparent, var(--color-primary), transparent); border-radius: 4px; opacity: 0.8; }
+        h3 { font-size: clamp(1.8rem, 4.5vw, 2.3rem); font-weight: 600; color: var(--color-accent); margin-bottom: 30px; margin-top: 55px; }
+        h4 { font-size: clamp(1.3rem, 3.2vw, 1.6rem); font-weight: 600; color: var(--color-accent); margin-bottom: 18px; letter-spacing: 0.2px; }
+        p { font-size: clamp(1.0rem, 2.5vw, 1.1rem); max-width: 780px; margin: 0 auto 40px auto; color: var(--color-text-medium); line-height: 1.75; font-weight: 400; }
+        .section-intro { margin-bottom: 65px; font-size: clamp(1.1rem, 2.8vw, 1.25rem); color: var(--color-accent); font-weight: 400; max-width: 700px; opacity: 0.9; }
+        strong { font-weight: 600; color: var(--color-primary); }
+        a { color: var(--color-primary); text-decoration: none; font-weight: 500; }
+        a:hover { color: var(--color-accent); }
+
+
+        /* --- Buttons --- */
+        .btn { display: inline-block; padding: 15px 45px; margin: 15px 15px; border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 1.05rem; transition: all var(--transition-smooth); border: 2px solid transparent; cursor: pointer; letter-spacing: 1.2px; position: relative; overflow: hidden; z-index: 1; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3); -webkit-backface-visibility: hidden; backface-visibility: hidden; will-change: transform, box-shadow; }
+        .btn::before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(255, 255, 255, 0.12); border-radius: 50%; transform: translate(-50%, -50%) scale(0); transition: width 0.7s ease, height 0.7s ease, transform 0.7s ease, opacity 0.7s ease; opacity: 0; z-index: -1; }
+        .btn:hover::before { width: 300%; height: 300%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        .btn:hover { transform: translateY(-6px) scale(1.04); box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4); }
+        .btn-primary { background: linear-gradient(95deg, var(--color-primary-darker) 0%, var(--color-primary) 100%); color: var(--color-text-on-primary); border-color: transparent; box-shadow: 0 8px 35px var(--glow-primary); }
+        .btn-primary:hover { box-shadow: 0 12px 45px var(--glow-primary); filter: brightness(1.15); border-color: rgba(255, 255, 255, 0.2); }
+        .btn-secondary { background-color: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); box-shadow: none; }
+        .btn-secondary:hover { background-color: var(--color-primary); color: var(--color-text-on-primary); transform: translateY(-6px) scale(1.04); border-color: var(--color-primary); box-shadow: 0 10px 30px var(--glow-primary); }
+
+        /* --- Hero Section (Performance Update) --- */
+        #home {
+            min-height: 95vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 140px 25px 100px 25px; border-bottom: none;
+            background: linear-gradient(rgba(3, 4, 7, 0.8), rgba(0, 0, 0, 0.98)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=85') no-repeat center center/cover;
+            /* background-attachment: fixed; --- REMOVED for Performance --- */
+            position: relative; overflow: hidden;
+        }
+        #home::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.35) 100%); z-index: 0; pointer-events: none; }
+        #home > * { z-index: 1; }
+        .cta-buttons { margin-top: 30px; }
+        .cta-buttons .fas { font-size: 0.85em; margin-left: 12px; transition: transform 0.3s ease; }
+        .cta-buttons .btn:hover .fas { transform: translateX(4px); }
+
+        /* --- About Section --- */
+        #about .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-top: 75px; text-align: left; }
+        #about .image-container { position: relative; }
+        #about img { width: 100%; max-width: 400px; display: block; margin: 0 auto; border-radius: 30px; box-shadow: 0 20px 70px rgba(0,0,0, 0.55); transition: transform 0.7s ease, box-shadow 0.7s ease, filter 0.5s ease; border: 1.5px solid var(--border-glass); filter: saturate(1.05); }
+        #about img:hover { transform: scale(1.06) rotate(-2deg); box-shadow: 0 25px 80px rgba(0,0,0, 0.6), 0 0 60px var(--glow-primary); filter: saturate(1.15) brightness(1.05); }
+
+        /* --- Key Features / Value Prop --- */
+        #features .container { max-width: 1000px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-top: 75px; align-items: stretch; }
+        .feature-card { background: var(--color-surface); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); border: 1px solid transparent; padding: 40px 30px; border-radius: 30px; transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), background-color var(--transition-smooth), border-color var(--transition-smooth); text-align: center; box-shadow: 0 10px 35px rgba(0,0,0, 0.35); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; }
+        .feature-card::before { content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity var(--transition-smooth); z-index: 0; }
+        .feature-card:hover { transform: translateY(-14px) scale(1.04); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 65px var(--glow-primary); background: var(--color-surface-hover); }
+        .feature-card:hover::before { opacity: 1; background: linear-gradient(135deg, var(--color-primary), var(--color-accent)); }
+        .feature-card > * { position: relative; z-index: 1; }
+        .feature-card i { font-size: 3.5rem; color: var(--color-primary); margin-bottom: 30px; display: block; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), color var(--transition-fast); will-change: transform; flex-shrink: 0; }
+        .feature-card:hover i { transform: scale(1.2) rotate(-12deg); color: var(--color-accent); }
+        .feature-card h4 { color: var(--color-accent); margin-bottom: 15px; font-weight: 600; flex-shrink: 0; }
+        .feature-card p { font-size: 0.95rem; color: var(--color-text-medium); max-width: 100%; margin-bottom: 0; line-height: 1.7; flex-grow: 1; }
+
+        /* --- Menu Section --- */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 45px; margin-top: 75px; }
+        .menu-item { background: var(--color-surface); border: 1px solid var(--border-glass); border-radius: 30px; overflow: hidden; transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), background-color var(--transition-smooth), border-color var(--transition-smooth); text-align: left; position: relative; box-shadow: 0 8px 30px rgba(0,0,0, 0.3); display: flex; flex-direction: column; will-change: transform, box-shadow; }
+         .menu-item .item-image { height: 220px; background-size: cover; background-position: center; position: relative; opacity: 0.9; transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.5s ease; flex-shrink: 0; border-bottom: 1px solid var(--border-glass); }
+         .menu-item:hover .item-image { opacity: 1; transform: scale(1.12); filter: brightness(1.1) saturate(1.1); }
+        .menu-item .item-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-item .item-text { margin-bottom: 20px; }
+        .menu-item h4 { color: var(--color-accent); margin-bottom: 10px; font-weight: 600; }
+        .menu-item p { font-size: 0.9rem; color: var(--color-text-medium); margin-bottom: 0; max-width: 100%; line-height: 1.6; }
+        .menu-item .price { font-size: 1.5rem; font-weight: 700; color: var(--color-primary); display: inline-block; margin-top: auto; align-self: flex-end; background: rgba(88, 105, 255, 0.1); padding: 4px 12px; border-radius: 6px; transition: color 0.3s ease, background-color 0.3s ease; }
+         .menu-item:hover { transform: translateY(-12px); box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4), 0 0 60px var(--glow-primary); background: var(--color-surface-hover); border-color: var(--border-glass-hover); }
+         .menu-item:hover .price { color: var(--color-accent); background-color: rgba(88, 105, 255, 0.3); }
+         .menu-cta { margin-top: 60px; }
+
+        /* --- How It Works Section --- */
+        .steps-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px 35px; margin-top: 80px; position: relative; align-items: center; }
+        .steps-container::before { content: ''; position: absolute; top: 50%; left: 15%; right: 15%; height: 4px; background: linear-gradient(90deg, transparent, rgba(88, 105, 255, 0.15) 20%, rgba(88, 105, 255, 0.15) 80%, transparent); opacity: 0.4; z-index: 0; transform: translateY(-50%); border-radius: 5px; display: none; }
+         @media (min-width: 992px) { .steps-container::before { display: block; } }
+        .step-card { text-align: center; position: relative; z-index: 1; background: var(--color-surface); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border: 2.5px solid var(--color-primary); padding: 35px; border-radius: 50%; width: 220px; height: 220px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 0 50px var(--glow-primary); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow var(--transition-smooth), border-color var(--transition-smooth); will-change: transform, box-shadow; }
+         .step-card:hover { transform: scale(1.14) rotate(8deg); box-shadow: 0 0 70px var(--glow-primary); border-color: var(--color-accent); }
+        .step-card i { font-size: 3.2rem; color: var(--color-primary); margin-bottom: 20px; transition: transform 0.5s ease, color 0.5s ease; }
+        .step-card:hover i { transform: scale(1.22); color: var(--color-accent); }
+        .step-card h4 { font-size: 1.3rem; color: var(--color-accent); margin-bottom: 12px; font-weight: 600; }
+        .step-card p { font-size: 0.95rem; color: var(--color-text-medium); line-height: 1.6; margin-bottom: 0; }
+        #how-it-works .order-buttons-container { margin-top: 70px; }
+        #how-it-works .placeholder-notice { font-size: 0.9rem; margin-top: 20px; color: var(--color-text-medium); opacity: 0.7; }
+
+        /* --- Roadmap Section --- */
+        .roadmap-timeline { list-style: none; padding: 0; margin: 80px auto 0 auto; position: relative; max-width: 800px; }
+        .roadmap-timeline::before { content: ''; position: absolute; left: 22px; top: 8px; bottom: 8px; width: 6px; background: linear-gradient(to bottom, rgba(88, 105, 255, 0.1), var(--color-primary) 30%, var(--color-primary) 70%, rgba(88, 105, 255, 0.3)); border-radius: 6px; box-shadow: 0 0 12px rgba(88, 105, 255, 0.25); }
+        .roadmap-item { margin-bottom: 70px; position: relative; padding-left: 85px; text-align: left; transition: transform 0.5s ease; will-change: transform; }
+         .roadmap-item:hover { transform: translateX(12px); }
+        .roadmap-item::before { font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -2px; top: -4px; width: 50px; height: 50px; line-height: 50px; text-align: center; font-size: 1.4rem; color: var(--color-text-on-primary); background: var(--color-primary); border-radius: 50%; box-shadow: 0 0 30px var(--glow-primary); border: 4px solid var(--color-background-start); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s ease; z-index: 1; }
+        .roadmap-item:hover::before { transform: scale(1.18) rotate(-18deg); box-shadow: 0 0 45px var(--glow-primary), 0 0 20px var(--color-accent); background: var(--color-accent); color: var(--color-primary); }
+        .roadmap-item h4 { font-size: 1.6rem; color: var(--color-accent); margin-bottom: 15px; font-weight: 600; }
+         .roadmap-item p { color: var(--color-text-medium); font-size: 1.05rem; margin-bottom: 0; max-width: 100%; line-height: 1.75; }
+         .roadmap-item i.fas:not(.fa-whatsapp):not(.fa-instagram):not(.fa-facebook-f):not(.fa-envelope):not(.fa-map-marker-alt):not(.fa-heart):not(.fa-chevron-up):not(.fa-arrow-right) { color: var(--color-primary); margin-left: 10px; font-size: 0.8em; }
+         .roadmap-item:nth-child(1)::before { content: '\f06d'; } .roadmap-item:nth-child(2)::before { content: '\f135'; } .roadmap-item:nth-child(3)::before { content: '\f521'; }
+
+        /* --- Contact Section --- */
+        #contact { background: linear-gradient(165deg, rgba(22, 24, 32, 0.75), rgba(8, 9, 14, 0.9)); border-bottom: none; border-top: 1px solid rgba(255, 255, 255, 0.04); }
+        #contact h2 { color: var(--color-accent); font-weight: 700; }
+         #contact h2::after { background: linear-gradient(90deg, transparent, var(--color-accent), transparent); }
+        .contact-info { margin-top: 65px; }
+        .contact-info p { font-size: 1.3rem; color: var(--color-text-light); margin-bottom: 30px; line-height: 1.8; }
+         .contact-info i.fas { margin-right: 20px; color: var(--color-primary); width: 30px; text-align: center; font-size: 1.4rem; vertical-align: middle; transition: transform 0.4s ease; display: inline-block; }
+         .contact-info p:hover i.fas { transform: scale(1.12) rotate(-5deg); }
+         .contact-info a { border-bottom: 1.5px dashed rgba(88, 105, 255, 0.45); transition: color var(--transition-fast), border-bottom-color var(--transition-fast), filter var(--transition-fast); padding-bottom: 1px; font-weight: 500; }
+         .contact-info a:hover { border-bottom-color: var(--color-accent); filter: brightness(1.1); border-bottom-style: solid; }
+         .social-links { margin-top: 50px; }
+         .social-links a { color: var(--color-text-medium); font-size: 2.2rem; margin: 0 20px; transition: color var(--transition-fast), transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease; display: inline-block; opacity: 0.7; }
+          .social-links a:hover { color: var(--color-primary); transform: scale(1.35) translateY(-10px) rotate(-15deg); filter: drop-shadow(0 0 18px var(--glow-primary)); opacity: 1; }
+          .contact-info .placeholder-notice { font-size: 0.9rem; margin-top: 35px; color: var(--color-text-medium); opacity: 0.6; }
+
+        /* --- ENHANCED FOOTER --- */
+        footer { background-color: var(--color-primary); color: var(--color-text-on-primary); padding: 80px 0 40px 0; margin-top: 80px; text-align: left; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 50px 40px; margin-bottom: 60px; }
+        .footer-column h4 { font-size: 1.2rem; font-weight: 600; color: var(--color-text-on-primary); margin-bottom: 25px; position: relative; padding-bottom: 10px; }
+        .footer-column h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 3px; background-color: var(--color-text-on-primary-muted); border-radius: 3px; }
+        .footer-column p, .footer-column li { font-size: 0.95rem; color: var(--color-text-on-primary-muted); margin-bottom: 12px; line-height: 1.8; }
+        .footer-column ul { list-style: none; padding: 0; margin: 0; }
+        .footer-column a { color: var(--color-text-on-primary-muted); text-decoration: none; transition: color var(--transition-fast), padding-left var(--transition-fast); font-weight: 400; }
+        .footer-column a:hover { color: var(--color-text-on-primary); padding-left: 5px; }
+        .footer-social-links a { font-size: 1.6rem; color: var(--color-text-on-primary-muted); margin-right: 20px; transition: color var(--transition-fast), transform var(--transition-fast); display: inline-block; }
+        .footer-social-links a:hover { color: var(--color-text-on-primary); transform: translateY(-3px); }
+        .footer-logo-col .logo-link { color: var(--color-text-on-primary); margin-bottom: 15px; display: inline-block; }
+        .footer-logo-col .logo-link img { border-color: var(--color-text-on-primary-muted); }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid var(--color-footer-border); color: var(--color-text-on-primary-muted); font-size: 0.9rem; }
+        .footer-bottom p { margin-bottom: 8px; }
+        .footer-bottom a { color: var(--color-text-on-primary); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; opacity: 0.9; transition: opacity var(--transition-fast); }
+        .footer-bottom a:hover { opacity: 1; text-decoration: none;}
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 992px) {
+             h2 { font-size: clamp(2.0rem, 5vw, 2.8rem); }
+             .roadmap-timeline::before { left: 20px; width: 5px; }
+             .roadmap-item { padding-left: 75px; }
+             .roadmap-item::before { left: -3px; width: 48px; height: 48px; line-height: 48px;}
+             .steps-container { gap: 60px 30px; }
+             .steps-container::before { left: 12%; right: 12%; opacity: 0.3;}
+             #features .container { max-width: 90%; }
+             #about .about-content { grid-template-columns: 1fr; gap: 45px; }
+             #about .image-container { order: -1; margin-bottom: 25px;}
+             #about img { max-width: 70%; }
+             .content-section.alt-bg { margin: 70px 15px; padding: 80px 30px; }
+             nav ul { gap: 30px; }
+             .footer-content { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        }
+        @media (max-width: 768px) {
+            html { font-size: 14.5px; }
+            h1 { font-size: clamp(2.5rem, 7vw, 3.8rem); } h2 { font-size: clamp(1.9rem, 5.5vw, 2.6rem); } h3 { font-size: clamp(1.6rem, 4.2vw, 2.1rem); } h4 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+            p { font-size: 0.95rem;}
+            nav { padding: 14px 0; }
+            nav ul { display: none; } /* Hide Nav Links for Mobile Menu */
+            .content-section { padding: 100px 0 80px 0; }
+            .content-section.alt-bg { margin: 60px 15px; padding: 75px 25px; border-radius: 30px;}
+            .features-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 30px; }
+            #features .container { padding: 0 25px; }
+            .menu-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 35px;}
+            .steps-container { grid-template-columns: 1fr; gap: 45px; }
+            .step-card { width: 200px; height: 200px; padding: 30px;}
+            .roadmap-timeline { max-width: 90%; }
+            .roadmap-timeline::before { left: 18px; }
+            .roadmap-item { padding-left: 70px; margin-bottom: 60px; }
+            .roadmap-item::before { width: 46px; height: 46px; line-height: 46px; left: -2px;}
+            .contact-info p { font-size: 1.15rem;}
+            .social-links a { font-size: 2rem; margin: 0 18px;}
+            #about img { max-width: 80%; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+            .footer-column { text-align: center; }
+            .footer-column h4::after { left: 50%; transform: translateX(-50%); }
+        }
+         @media (max-width: 480px) {
+              html { font-size: 14px; }
+              body::before, body::after { width: 115vw; height: 115vw; filter: blur(220px); opacity: 0.18; }
+              h1 { font-size: 2.2rem; } h2 { font-size: 1.8rem; } h3 { font-size: 1.5rem; } h4 { font-size: 1.2rem; }
+              p { font-size: 0.9rem; }
+              .container { padding: 0 20px; }
+              nav { padding: 12px 0; }
+              nav .logo-link { font-size: 1.3rem; }
+              nav .logo-link img { height: 40px; width: 40px;}
+              .content-section { padding: 90px 0 70px 0; }
+              .content-section.alt-bg { padding: 70px 20px; border-radius: 25px;}
+              #home { padding: 120px 20px 80px 20px; min-height: 80vh; }
+              .cta-buttons { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; margin-top: 25px;}
+              .btn { width: 95%; max-width: 300px; padding: 14px 30px; font-size: 1rem; letter-spacing: 1px;}
+              .features-grid { grid-template-columns: 1fr; gap: 25px;}
+              #features .container { padding: 0 20px; }
+              .menu-grid { grid-template-columns: 1fr; gap: 30px; }
+              .menu-item .item-image { height: 200px; }
+              .menu-item .price { font-size: 1.4rem; }
+              .step-card { width: 180px; height: 180px; padding: 25px; }
+              .step-card i { font-size: 2.8rem; }
+              .step-card h4 { font-size: 1.1rem; }
+              .roadmap-timeline::before { left: 16px; width: 4px;}
+              .roadmap-item { padding-left: 65px; }
+              .roadmap-item::before { width: 42px; height: 42px; line-height: 42px; font-size: 1.2rem; left: -2px; border-width: 3px;}
+              .contact-info p { font-size: 1.05rem;}
+              .contact-info i.fas { font-size: 1.2rem; margin-right: 15px; width: 25px;}
+              .social-links a { font-size: 1.9rem; margin: 0 15px;}
+              #about img { max-width: 95%; }
+              .footer-content { grid-template-columns: 1fr; gap: 35px; text-align: center; }
+              .footer-column h4::after { left: 50%; transform: translateX(-50%); }
+              .footer-social-links { margin-top: 15px; }
+         }
+
+    </style>
+</head>
+<body data-aos-easing="ease-out-quint" data-aos-duration="1000" data-aos-delay="50">
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+         <div class="container">
+            <!-- Logo -->
+            <a href="#home" class="logo-link">
+                 <img src="https://media-hosting.imagekit.io/b0dd80b78ab44597/1000070419.png?Expires=1839144481&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=wopBaTxkLm7YhKf50uSBLOmO7xJXVc1B7Qt7ugbPLaAOThjhToARcnbZqS~adySoqRI95uk5dKSL6fiMwW2MtQ8SZRv2XXNKAq3GPOIHAp12xVhuVcCotoP12pcP23F2-caw0oKdbMpxVuS1o-HtFW3ukYdjECtd54bs2QQ6sZHKj~R6VtuqUGRCoV8QFLr2~S6AfD4TOHYhPRAqWjqAiabU1~jUv3VLSrc3jY6xlodOMAot-LDMKOQxFf8oNUrwcxHkgvIV5fSYg~DoDma0fSVn-jjWLhxLaexOkI7ZsTFgjap52IoZiR2mNe45rCVL8-niQiSqAa~xjuMtfsR8Bw__" alt="TASTEBUDS Mini Logo">
+                 <span>TASTEBUDS</span>
+            </a>
+            <!-- Links (Pushed right via margin-left: auto) -->
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Why Us?</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#how-it-works">Order</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <!-- Mobile Placeholder -->
+            <!-- <button class="mobile-nav-toggle">Menu</button> -->
+        </div>
+    </nav>
+
+    <div class="main-content">
+
+        <!-- Hero Section -->
+        <section id="home" class="content-section">
+            <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1100">Your Daily Dose<br>of <span>Delicious</span></h1>
+            <div class="cta-buttons" data-aos="fade-up" data-aos-delay="350" data-aos-duration="1100">
+                <a href="#menu" class="btn btn-primary">Explore Menu</a>
+                <a href="#how-it-works" class="btn btn-secondary">Order Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="container">
+                <h2 data-aos="fade-up">Redefining Campus Eats</h2>
+                <p class="section-intro" data-aos="fade-up" data-aos-delay="150">TASTEBUDS: A student-focused cloud kitchen crushing late-night hunger at BPUT with flavour, quality, and speed.</p>
+                <div class="about-content">
+                     <div data-aos="fade-right" data-aos-delay="300" data-aos-duration="1000">
+                         <h3>Built For Students</h3>
+                         <p>We get the grind. That's why we focus on: <strong>great taste</strong> from fresh ingredients, strict hygiene, <strong>fast delivery</strong> to your hostel, and budget-friendly prices.</p>
+                         <p>Count on us for fuel, especially during those crucial <strong>late hours</strong> when others are closed.</p>
+                         <a href="#features" class="btn btn-secondary" style="margin-top: 30px;" data-aos="fade-up" data-aos-delay="400">Discover Why</a>
+                    </div>
+                     <div class="image-container" data-aos="fade-left" data-aos-delay="300" data-aos-duration="1000">
+                         <img src="https://media-hosting.imagekit.io/d30a77a558cc4764/1000070723.jpg?Expires=1839243890&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=I2ipQ4ZB-GqL2ysIcauu-fLiMcwW9r7aDYIVw9x0-FMc3shYulebNVlLxR4KTL0eBED3dBKVLyUnYKh-Qk5mhRhBwWrdFYoU7UH45WHVbnk1Q8dtliW3rpD3Tf4imiWeh-kVJWGkrm7eBdb5xumK1TVD4rJ2IY39MIkiwhyBIpFRxT2zw-KnVupo3iEIGV2~tv-X46mxVhmSUJ28cTW8-Ek6fdE9Z50FCsr8fqLd1ptnMrOx3jGuyzJDYXuuuwo2JW3avMgX3Li5UYEWiks19yaxBaXND0Gx90zkfyM~Y4c7pPLmx-yAniGavpp3y~jSUYgK4Mme-Ircc-P6UyFpog__" alt="Delicious Italian Hero sandwich from TASTEBUDS">
+                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section id="features" class="content-section alt-bg">
+             <div class="container">
+                 <h2 data-aos="fade-up">The TASTEBUDS Edge</h2>
+                 <p class="section-intro" data-aos="fade-up" data-aos-delay="150">Experience the difference. Why students choose us:</p>
+                 <div class="features-grid">
+                    <div class="feature-card" data-aos="zoom-in-up" data-aos-delay="250"> <i class="fas fa-moon"></i> <h4>Late Night Service</h4> <p>Craving hits late? We deliver fresh flavors when others won't.</p> </div>
+                    <div class="feature-card" data-aos="zoom-in-up" data-aos-delay="300"> <i class="fas fa-tachometer-alt"></i> <h4>Campus Speed</h4> <p>Hyper-local focus means your order arrives fast and hot.</p> </div>
+                    <div class="feature-card" data-aos="zoom-in-up" data-aos-delay="350"> <i class="fas fa-leaf"></i> <h4>Quality Ingredients</h4> <p>Freshness prepared with care. Taste the commitment.</p> </div>
+                    <div class="feature-card" data-aos="zoom-in-up" data-aos-delay="400"> <i class="fas fa-wallet"></i> <h4>Smart Value</h4> <p>Great flavors designed for the student budget. Affordable.</p> </div>
+                 </div>
+             </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="content-section">
+            <div class="container">
+                <h2 data-aos="fade-up">Campus Cravings</h2>
+                 <p class="section-intro" data-aos="fade-up" data-aos-delay="150">Our signature selection, crafted for satisfaction.</p>
+                <div class="menu-grid">
+                     <div class="menu-item" data-aos="fade-up" data-aos-delay="250"> <div class="item-image" style="background-image: url('https://media-hosting.imagekit.io/b9c5d7e4ec61475f/1000070721.jpg?Expires=1839243775&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=KYJh6YxsbW0Z-DKFjU4uMrSUEaPjb2~Yh~5C9z5-UWfkZjfNmEaVFsixvMZLlqJtp5e9xClf45LviTLukWqoFjrAad6tbjEE92VOo0NfD8uM1pD5bmHiwHxzIRH3dkR4pU1smf77pgruMfDbhFIG3DStrCFXOhNmsE-WOyx9o~YtzmtDe63JnW04NZJsfyuM7MQIjQTgTMW6d80SsAHLdKpElu2VfQRE9-Tyx103IrJBHL0YqflESHtCPxn~PTqW6YPHnI-RnUlGpqvz8IU9huztPjDETOXdbd3we~6gyox7IHjPkzxgtZM124CrRBvBp0~V2m0usyKFKYWJxG2Kpg__');"></div> <div class="item-content"> <div class="item-text"> <h4>Citrus Spark</h4> <p>A burst of citrus refreshment to quench thirst.</p> </div> <span class="price">₹40</span> </div> </div>
+                     <div class="menu-item" data-aos="fade-up" data-aos-delay="300"> <div class="item-image" style="background-image: url('https://media-hosting.imagekit.io/c4c858ed2c96417d/1000070722.jpg?Expires=1839243816&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=ZE6gL0H7qPGGUT1pjRTrUI-oXdX3b5QvTz2ZefwI2J~MHvxT6Aap68EQnF80O4wVCsyfrU58DiT0-s6v9MgnoJ7f-5LGwyVQr0wCLKi-afvpO1jZQOnUu1fy1oKAXK1aa7htx-g~OcxpjocYPSxxpEgdYPACfkavAzI6kxRqs90goxE1R1YN0ZczWJe8KRfzTj4iYGwQEvI1oqOl0QII4oElXYeYs6gUGzS2kEbzgoNel9LsaLZZouSNTSCItaNswuhNB5SIEHzvZmd8cePOfhhBUt7JV68hG1zNrYqC8rxNSffdibznlSE5kSixrvcnH~DtOoTvG5zY-hEKWyb1HA__');"></div> <div class="item-content"> <div class="item-text"> <h4>Crunchy Mania</h4> <p>Irresistibly crunchy, savory snack. Perfect munch companion.</p> </div> <span class="price">₹55</span> </div> </div>
+                     <div class="menu-item" data-aos="fade-up" data-aos-delay="350"> <div class="item-image" style="background-image: url('https://media-hosting.imagekit.io/d30a77a558cc4764/1000070723.jpg?Expires=1839243890&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=I2ipQ4ZB-GqL2ysIcauu-fLiMcwW9r7aDYIVw9x0-FMc3shYulebNVlLxR4KTL0eBED3dBKVLyUnYKh-Qk5mhRhBwWrdFYoU7UH45WHVbnk1Q8dtliW3rpD3Tf4imiWeh-kVJWGkrm7eBdb5xumK1TVD4rJ2IY39MIkiwhyBIpFRxT2zw-KnVupo3iEIGV2~tv-X46mxVhmSUJ28cTW8-Ek6fdE9Z50FCsr8fqLd1ptnMrOx3jGuyzJDYXuuuwo2JW3avMgX3Li5UYEWiks19yaxBaXND0Gx90zkfyM~Y4c7pPLmx-yAniGavpp3y~jSUYgK4Mme-Ircc-P6UyFpog__');"></div> <div class="item-content"> <div class="item-text"> <h4>Italian Hero</h4> <p>Stacked Italian flavors in perfectly toasted bread.</p> </div> <span class="price">₹60</span> </div> </div>
+                     <div class="menu-item" data-aos="fade-up" data-aos-delay="400"> <div class="item-image" style="background-image: url('https://media-hosting.imagekit.io/fe0f5e2241874154/1000070724.jpg?Expires=1839243918&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=LXagHzg2c10eDHguc6efgVLdEefypAOkgg8XM8zamRPbsLYKW-c5tWAtBWbpl9yKo0D~w0QSie1lgi9KTZr4nAPAad-p7ECbRs88ZZvmWcMLvOpI8JpvyPAO3GoTSblXHXYDiNZiX0fhaVUks77MLZOpWsqN7Ow7YTptmamZruzXmppIvva68E5pB0umTn8luV~a47MZk7OndBVeSwBQ1h~IccB0uW9UXMsxO25AP-fkXUWoWoLFWS-4Acq-mbHNvPNzygKDN5~WJNPMO08KjFpTBiORkdBYGlm6-cs40dsiD9IaabKET1J9l2DMWgxZ0FAlnQmhp3oW9dNZ935phA__');"></div> <div class="item-content"> <div class="item-text"> <h4>Velvet Cold Brew</h4> <p>Intensely smooth, rich cold brew coffee. Pure focus fuel.</p> </div> <span class="price">₹50</span> </div> </div>
+                 </div>
+                 <div class="menu-cta" data-aos="fade-up" data-aos-delay="450"> <a href="#how-it-works" class="btn btn-primary">Order Now</a> </div>
+            </div>
+         </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="content-section alt-bg">
+            <div class="container">
+                 <h2 data-aos="fade-up">Order in 3 Steps</h2>
+                 <p class="section-intro" data-aos="fade-up" data-aos-delay="150">Getting your TASTEBUDS fix is simple:</p>
+                 <div class="steps-container">
+                     <div class="step-card" data-aos="fade-right" data-aos-delay="250" data-aos-anchor=".steps-container" data-aos-duration="900"> <i class="fab fa-whatsapp"></i> <h4>1. Connect</h4> <p>Send your order via WhatsApp or Insta.</p> </div>
+                    <div class="step-card" data-aos="fade-up" data-aos-delay="300" data-aos-anchor=".steps-container" data-aos-duration="900"> <i class="fas fa-magic"></i> <h4>2. Create</h4> <p>We craft your meal fresh, made to order.</p> </div>
+                    <div class="step-card" data-aos="fade-left" data-aos-delay="350" data-aos-anchor=".steps-container" data-aos-duration="900"> <i class="fas fa-concierge-bell"></i> <h4>3. Collect</h4> <p>Delivered fast & hot to your hostel door.</p> </div>
+                 </div>
+                 <div class="order-buttons-container" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fab fa-whatsapp" style="margin-right: 10px;"></i> WhatsApp</a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-instagram" style="margin-right: 10px;"></i> Instagram</a>
+                     <p class="placeholder-notice"></p>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="content-section">
+             <div class="container">
+                 <h2 data-aos="fade-up">Our Journey</h2>
+                 <p class="section-intro" data-aos="fade-up" data-aos-delay="150">We're always growing. Here's our vision:</p>
+                 <ul class="roadmap-timeline">
+                     <li class="roadmap-item" data-aos="fade-left" data-aos-delay="250" data-aos-anchor=".roadmap-timeline"> <h4>Phase 1: Foundation <i class="fas fa-fire"></i></h4> <p>Launched! Serving BPUT, mastering recipes, building community.</p> </li>
+                    <li class="roadmap-item" data-aos="fade-left" data-aos-delay="300" data-aos-anchor=".roadmap-timeline"> <h4>Phase 2: Expansion <i class="fas fa-rocket"></i></h4> <p>New menu items, loyalty rewards, optimized delivery.</p> </li>
+                     <li class="roadmap-item" data-aos="fade-left" data-aos-delay="350" data-aos-anchor=".roadmap-timeline"> <h4>Phase 3: Legacy <i class="fas fa-crown"></i></h4> <p>Unique subscriptions, campus partnerships, iconic BPUT brand.</p> </li>
+                 </ul>
+             </div>
+         </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section alt-bg">
+             <div class="container">
+                 <h2 data-aos="fade-up">Connect With Us</h2>
+                 <p class="section-intro" data-aos="fade-up" data-aos-delay="150">Questions? Feedback? Let's talk.</p>
+                 <div class="contact-info" data-aos="fade-up" data-aos-delay="250">
+                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:connect.tastebuds.bput@email.com" title="Email TASTEBUDS">connect.tastebuds.bput@email.com</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i>Serving: BPUT Campus, Chhend, Rourkela</p>
+                     <div class="social-links" data-aos="fade-up" data-aos-delay="300">
+                         <a href="#" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                         <a href="#" target="_blank" rel="noopener noreferrer" title="Follow on Instagram"><i class="fab fa-instagram"></i></a>
+                     </div>
+                     <p class="placeholder-notice"></p>
+                 </div>
+             </div>
+        </section>
+
+    </div> <!-- /main-content -->
+
+    <!-- ENHANCED FOOTER SECTION -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Column 1: Brand/About -->
+                <div class="footer-column footer-logo-col">
+                     <a href="#home" class="logo-link" style="color: var(--color-text-on-primary); font-size: 1.5rem; font-weight: 700;">
+                         <img src="https://media-hosting.imagekit.io/b0dd80b78ab44597/1000070419.png?Expires=1839144481&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=wopBaTxkLm7YhKf50uSBLOmO7xJXVc1B7Qt7ugbPLaAOThjhToARcnbZqS~adySoqRI95uk5dKSL6fiMwW2MtQ8SZRv2XXNKAq3GPOIHAp12xVhuVcCotoP12pcP23F2-caw0oKdbMpxVuS1o-HtFW3ukYdjECtd54bs2QQ6sZHKj~R6VtuqUGRCoV8QFLr2~S6AfD4TOHYhPRAqWjqAiabU1~jUv3VLSrc3jY6xlodOMAot-LDMKOQxFf8oNUrwcxHkgvIV5fSYg~DoDma0fSVn-jjWLhxLaexOkI7ZsTFgjap52IoZiR2mNe45rCVL8-niQiSqAa~xjuMtfsR8Bw__" alt="TASTEBUDS Mini Logo" style="height: 40px; width: 40px; margin-right: 12px; vertical-align: middle;">
+                         <span>TASTEBUDS</span>
+                    </a>
+                    <p>Your go-to late-night cloud kitchen at BPUT, delivering deliciousness fast.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#menu">Our Menu</a></li>
+                        <li><a href="#how-it-works">How to Order</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                         <!-- Add more relevant links if needed -->
+                         <!-- <li><a href="#">FAQs</a></li> -->
+                         <!-- <li><a href="#">Terms of Service</a></li> -->
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact Info -->
+                <div class="footer-column">
+                    <h4>Get In Touch</h4>
+                     <p> <i class="fas fa-map-marker-alt" style="margin-right: 8px; width: 15px;"></i> BPUT Campus,<br> Chhend, Rourkela </p>
+                     <p> <i class="fas fa-envelope" style="margin-right: 8px; width: 15px;"></i> <a href="mailto:connect.tastebuds.bput@email.com" title="Email TASTEBUDS">connect.tastebuds.bput@email.com</a> </p>
+                     <p> <i class="fab fa-whatsapp" style="margin-right: 8px; width: 15px;"></i> <a href="#" target="_blank" rel="noopener noreferrer">Order on WhatsApp</a> </p>
+                     <p> <i class="fas fa-clock" style="margin-right: 8px; width: 15px;"></i> Open Late Daily! </p>
+                </div>
+
+                <!-- Column 4: Social Media -->
+                 <div class="footer-column">
+                    <h4>Follow Us</h4>
+                    <p>Stay updated with our latest offers and menu items!</p>
+                    <div class="footer-social-links">
+                        <a href="#" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" title="Follow on Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                 </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© <span id="currentYear"></span> TASTEBUDS. All Rights Reserved.</p>
+                <!-- You can add a designer credit or other info here if desired -->
+                <!-- <p>Website by [Your Name/Company]</p> -->
+            </div>
+        </div>
+     </footer>
+    <!-- END ENHANCED FOOTER -->
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // --- Throttling function ---
+        function throttle(func, limit) {
+            let lastFunc;
+            let lastRan;
+            return function(...args) {
+                const context = this;
+                if (!lastRan) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                } else {
+                    clearTimeout(lastFunc);
+                    lastFunc = setTimeout(function() {
+                        if ((Date.now() - lastRan) >= limit) {
+                            func.apply(context, args);
+                            lastRan = Date.now();
+                        }
+                    }, limit - (Date.now() - lastRan));
+                }
+            }
+        }
+
+        // --- Initialize AOS ---
+        AOS.init({
+             once: true, mirror: false, duration: 1000,
+             offset: 80, easing: 'ease-out-quart',
+        });
+
+        // --- Navbar Scroll Effect ---
+        const navbar = document.getElementById('navbar');
+        const handleScroll = () => { // Define the function to be throttled
+            const scrolled = window.pageYOffset > 80;
+            navbar.classList.toggle('scrolled', scrolled);
+            changeActiveLink(); // Also throttle link highlighting
+        };
+        // Throttle the scroll handler to run at most once every 150ms
+        const throttledScrollHandler = throttle(handleScroll, 150);
+        window.addEventListener('scroll', throttledScrollHandler, { passive: true });
+
+
+        // --- Active Navigation Link Highlighting ---
+        const navLinks = document.querySelectorAll('nav ul li a');
+        const contentSections = document.querySelectorAll('.content-section');
+        const getNavHeight = () => document.getElementById('navbar')?.offsetHeight || 70;
+
+        // NOTE: changeActiveLink is now called inside the *throttled* handleScroll function
+        // to prevent it running too often as well.
+        function changeActiveLink() {
+             let currentSectionId = 'home';
+             const scrollPosition = window.pageYOffset + getNavHeight() * 1.3;
+
+             for (let i = contentSections.length - 1; i >= 0; i--) {
+                 const section = contentSections[i];
+                 if (scrollPosition >= section.offsetTop - getNavHeight() * 0.5) {
+                      currentSectionId = section.id;
+                      break;
+                 }
+             }
+
+             const isNearBottom = (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 100;
+             if (isNearBottom && contentSections.length > 0) {
+                 currentSectionId = contentSections[contentSections.length - 1].id;
+             }
+
+             navLinks.forEach(link => {
+                 link.classList.toggle('active', link.getAttribute('href') === `#${currentSectionId}`);
+             });
+        }
+
+        // Smooth scroll and set active link on click
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Add active class immediately on click for visual feedback
+                navLinks.forEach(lnk => lnk.classList.remove('active'));
+                this.classList.add('active');
+                // CSS handles the smooth scroll
+            });
+        });
+
+        // Initial call for active link on page load
+        window.addEventListener('load', changeActiveLink);
+        // Also check active link on resize
+        window.addEventListener('resize', changeActiveLink);
+
+
+        // --- Update Footer Year ---
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    </script>
+
+</body>
+</html>
